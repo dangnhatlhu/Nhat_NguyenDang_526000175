@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs><filter id="sh2"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity="0.25"/></filter></defs>
+  <g transform="translate(40, 50)" filter="url(#sh2)">
+    <rect x="10" y="10" width="200" height="130" rx="6" fill="#0f172a" stroke="#334155" stroke-width="4"/>
+    <rect x="18" y="18" width="184" height="114" rx="2" fill="#020617"/>
+    <text x="110" y="75" text-anchor="middle" font-family="'Impact', sans-serif" font-size="22" fill="#f97316" letter-spacing="3">GIGABYTE</text>
+    <text x="110" y="95" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8">180Hz • 0.5ms • IPS</text>
+    <polygon points="105,140 115,140 120,180 100,180" fill="#334155"/>
+    <polygon points="60,195 160,195 140,180 80,180" fill="#1e293b"/>
+  </g>
+</svg>

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhật Store - Hệ thống Bán lẻ Điện thoại, Laptop, Phụ kiện Chính Hãng</title>
+  
+  <!-- Animate.css Library CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
+  <!-- AOS (Animate On Scroll) Library CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       HỆ THỐNG ĐIỀU KHIỂN TƯƠNG TÁC THUẦN CSS 
+       (ZERO JAVASCRIPT - CHECKBOX & RADIO HACKS)
+       ========================================== -->
+  <!-- Bộ lọc danh mục sản phẩm (CSS Filter) -->
+  <input type="radio" name="product-filter" id="filter-all" class="filter-radio" checked>
+  <input type="radio" name="product-filter" id="filter-phone" class="filter-radio">
+  <input type="radio" name="product-filter" id="filter-laptop" class="filter-radio">
+  <input type="radio" name="product-filter" id="filter-screen" class="filter-radio">
+  <input type="radio" name="product-filter" id="filter-accessory" class="filter-radio">
+  <input type="radio" name="product-filter" id="filter-watch" class="filter-radio">
+
+  <!-- Điều khiển Giỏ hàng (Cart Drawer) & Toast Tự tắt 5s -->
+  <input type="checkbox" id="cart-drawer-toggle" class="css-toggle">
+  <input type="checkbox" id="toast-add-cart" class="css-toggle toast-trigger">
+  <input type="checkbox" id="toast-buy-now" class="css-toggle toast-trigger">
+
+  <!-- ==========================================
+       CHỨC NĂNG TOAST: TỰ TẮT TRONG 5S (CSS KEYFRAMES)
+       ========================================== -->
+  <div class="toast-wrapper toast-cart">
+    <div class="toast-card toast-success animate__animated">
+      <div class="toast-icon">✓</div>
+      <div class="toast-body">
+        <strong>Thành công!</strong>
+        <p>Đã thêm sản phẩm vào giỏ hàng Đăng Nhật Store.</p>
+        <span class="toast-timer-bar"></span>
+      </div>
+      <label for="toast-add-cart" class="toast-close-btn" title="Đóng">&times;</label>
+    </div>
+  </div>
+
+  <div class="toast-wrapper toast-buy">
+    <div class="toast-card toast-info animate__animated">
+      <div class="toast-icon">★</div>
+      <div class="toast-body">
+        <strong>Đặt hàng thành công!</strong>
+        <p>Hệ thống đã nhận yêu cầu mua hàng. Nhân viên sẽ liên hệ trong 5 phút!</p>
+        <span class="toast-timer-bar"></span>
+      </div>
+      <label for="toast-buy-now" class="toast-close-btn" title="Đóng">&times;</label>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       TOP BANNER KHUYẾN MÃI
+       ========================================== -->
+  <aside class="top-announcement-bar animate__animated animate__fadeInDown">
+    <div class="container top-bar-content">
+      <span class="badge-hot">10.10 NGÀY ĐÔI</span>
+      <span class="highlight-text">SALE ĐẠIIII - CHỈ DUY NHẤT 3 NGÀY (09/10 - 10/10 - 11/10)</span>
+      <a href="#flash-sale" class="top-cta-btn animate__animated animate__pulse animate__infinite">MUA NGAY ›</a>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       SEMANTIC ELEMENT 1: <header>
+       ========================================== -->
+  <header class="main-header">
+    <div class="container header-container">
+      
+      <!-- Logo Đăng Nhật Store -->
+      <a href="#" class="brand-logo" aria-label="Đăng Nhật Store Trang chủ">
+        <img src="assets/logo.svg" alt="Đăng Nhật Store Logo" width="220" height="42">
+      </a>
+
+      <!-- CHỨC NĂNG TÌM KIẾM SẢN PHẨM (THUẦN CSS VỚI GỢI Ý INSTANT) -->
+      <div class="search-box-wrapper">
+        <form class="search-form" action="#flash-sale" method="get">
+          <input type="text" class="search-input" placeholder="Bạn tìm gì... (vivo V60 5G, MacBook Pro, G-Shock...)" aria-label="Tìm kiếm sản phẩm">
+          <button type="submit" class="search-btn" title="Tìm kiếm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Dropdown kết quả tìm kiếm tự động hiện ra khi focus (CSS :focus-within) -->
+        <div class="search-suggest-dropdown">
+          <div class="suggest-title">Gợi ý tìm kiếm phổ biến</div>
+          <a href="#modal-vivo-v60" class="suggest-item">
+            <img src="assets/vivo-v60.svg" alt="vivo">
+            <div>
+              <strong>Điện thoại vivo V60 5G 12GB/256GB</strong>
+              <span>14.580.000₫ <i>-8%</i></span>
+            </div>
+          </a>
+          <a href="#modal-vivo-v60" class="suggest-item">
+            <img src="assets/macbook-pro.svg" alt="macbook">
+            <div>
+              <strong>MacBook Pro 16 inch M5 Pro 24GB/1TB</strong>
+              <span>78.490.000₫ <i>-4%</i></span>
+            </div>
+          </a>
+          <a href="#flash-sale" class="suggest-item">
+            <img src="assets/gigabyte-monitor.svg" alt="monitor">
+            <div>
+              <strong>GIGABYTE Gaming 27 inch Full HD GS27FA</strong>
+              <span>2.890.000₫ <i>-17%</i></span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tiện ích Header: Đăng nhập, Voucher, Giỏ hàng, Vị trí -->
+      <div class="header-actions">
+        <a href="#modal-login" class="header-btn" title="Tài khoản">
+          <span class="btn-icon">👤</span>
+          <span class="btn-text">Đăng nhập</span>
+        </a>
+
+        <a href="#flash-sale" class="header-btn" title="Voucher giảm giá">
+          <span class="btn-icon">🏷️</span>
+          <span class="btn-text">Voucher</span>
+        </a>
+
+        <!-- CHỨC NĂNG GIỎ HÀNG: Mở Slide-over Drawer bằng Checkbox Hack -->
+        <label for="cart-drawer-toggle" class="header-btn cart-btn" title="Xem giỏ hàng">
+          <span class="btn-icon">🛒</span>
+          <span class="btn-text">Giỏ hàng</span>
+          <span class="cart-badge animate__animated animate__bounceIn">1</span>
+        </label>
+
+        <div class="header-btn location-btn" title="Khu vực giao hàng">
+          <span class="btn-icon">📍</span>
+          <span class="btn-text">Hồ Chí Minh</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================
+       SEMANTIC ELEMENT 2: <nav> (THANH ĐIỀU HƯỚNG)
+       Đầy đủ danh mục menu theo yêu cầu:
+       Điện thoại, laptop, phụ kiện, SmartWatch, 
+       Đồng hồ, Tablet, Máy cũ, thu cũ, Màn hình, 
+       máy in và Sim, thẻ cào.
+       ========================================== -->
+  <nav class="main-navigation" aria-label="Danh mục ngành hàng">
+    <div class="container nav-container">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <label for="filter-phone" class="nav-link">
+            <span class="nav-icon">📱</span> Điện thoại
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-laptop" class="nav-link">
+            <span class="nav-icon">💻</span> Laptop
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-accessory" class="nav-link">
+            <span class="nav-icon">🎧</span> Phụ kiện
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-watch" class="nav-link">
+            <span class="nav-icon">⌚</span> SmartWatch
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-watch" class="nav-link">
+            <span class="nav-icon">⏱️</span> Đồng hồ
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-phone" class="nav-link">
+            <span class="nav-icon">📲</span> Tablet
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-all" class="nav-link">
+            <span class="nav-icon">🔄</span> Máy cũ, Thu cũ
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-screen" class="nav-link">
+            <span class="nav-icon">🖥️</span> Màn hình, Máy in
+          </label>
+        </li>
+        <li class="nav-item">
+          <label for="filter-accessory" class="nav-link">
+            <span class="nav-icon">📶</span> Sim, Thẻ cào
+          </label>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       HANGING BANNERS (2 BANNER DỌC 2 BÊN NHƯ TGDD)
+       ========================================== -->
+  <div class="side-banner side-banner-left animate__animated animate__fadeInLeft">
+    <a href="#flash-sale">
+      <img src="assets/banner-side.svg" alt="Khuyến mãi 10.10" width="100" height="350">
+    </a>
+  </div>
+  <div class="side-banner side-banner-right animate__animated animate__fadeInRight">
+    <a href="#flash-sale">
+      <img src="assets/banner-side.svg" alt="Khuyến mãi 10.10" width="100" height="350">
+    </a>
+  </div>
+
+  <!-- ==========================================
+       SEMANTIC ELEMENT 3: <main> (NỘI DUNG CHÍNH)
+       ========================================== -->
+  <main class="main-content">
+    
+    <!-- Hero Carousel / Big Banner Section -->
+    <section class="hero-section container" data-aos="fade-up">
+      <div class="hero-banner-card animate__animated animate__zoomIn">
+        <img src="assets/banner-hero.svg" alt="10.10 Ngày Đôi Sale Đại - Đăng Nhật Store" class="hero-banner-img">
+      </div>
+      
+      <!-- Sub-promo Ribbon Bar -->
+      <div class="sub-promo-ribbon">
+        <span class="ribbon-item">⚡ <strong>Đăng Nhật Paylater:</strong> Hạn mức đến 60 triệu</span>
+        <span class="ribbon-separator">•</span>
+        <span class="ribbon-item">💳 <strong>Thẻ tín dụng VPBank Đăng Nhật Store:</strong> Hạn mức đến 100 triệu</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SEMANTIC ELEMENT 4: <section> (KHUYẾN MÃI ONLINE)
+         ========================================== -->
+    <section id="flash-sale" class="flash-sale-section container" data-aos="fade-up">
+      <div class="section-header-box">
+        <h1 class="section-title">Khuyến mãi online</h1>
+        
+        <!-- BỘ LỌC TABS SẢN PHẨM (CSS FILTERING) -->
+        <div class="filter-tabs-bar">
+          <label for="filter-all" class="tab-pill tab-all">
+            <span class="badge-flash">FLASH SALE</span> GIÁ SỐC
+          </label>
+          <label for="filter-all" class="tab-pill">Giảm sốc đến 50%</label>
+          <label for="filter-all" class="tab-pill">ONLINE ONLY</label>
+          <label for="filter-phone" class="tab-pill tab-phone">Điện Thoại</label>
+          <label for="filter-laptop" class="tab-pill tab-laptop">Laptop</label>
+          <label for="filter-accessory" class="tab-pill tab-accessory">Phụ Kiện</label>
+          <label for="filter-watch" class="tab-pill tab-watch">Đồng Hồ</label>
+          <label for="filter-screen" class="tab-pill tab-screen">PC, Màn hình</label>
+        </div>
+
+        <!-- Flash sale Countdown Bar (Mô phỏng đếm ngược thuần CSS) -->
+        <div class="countdown-bar-wrapper">
+          <div class="countdown-tag animate__animated animate__pulse animate__infinite">
+            Chỉ còn <span class="countdown-clock">03 : 03 : 49</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           LƯỚI SẢN PHẨM (CSS GRID LAYOUT)
+           Gồm 12 sản phẩm chi tiết đối ứng hình 1 & hình 2
+           ========================================== -->
+      <div class="product-grid">
+
+        <!-- SẢN PHẨM 1: VIVO V60 5G (Sản phẩm tiêu điểm đối ứng Hình 2) -->
+        <article class="product-card card-phone" data-aos="fade-up" data-aos-delay="50">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+            <span class="badge-tag-ai">★ AI</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link" title="Xem chi tiết vivo V60 5G">
+            <img src="assets/vivo-v60.svg" alt="vivo V60 5G" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">
+              <a href="#modal-vivo-v60">vivo V60 5G 12GB/256GB</a>
+            </h3>
+            <div class="product-price-box">
+              <span class="current-price">14.580.000₫</span>
+              <span class="old-price">15.990.000₫</span>
+              <span class="discount-rate">-8%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 4.9</span>
+              <span class="sales-count">• Đã bán 6,7k</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 60%;"></div>
+              <span class="progress-text">🔥 3/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <!-- Xem thông số qua CSS :target Modal -->
+              <a href="#modal-vivo-v60" class="btn-outline-spec" title="Xem thông số kỹ thuật">Thông số</a>
+              <!-- Thêm vào giỏ kích hoạt Toast 5s -->
+              <label for="toast-add-cart" class="btn-action-cart" title="Thêm vào giỏ">+</label>
+              <!-- Mua ngay -->
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 2: GIGABYTE Gaming 27 inch GS27FA -->
+        <article class="product-card card-screen" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/gigabyte-monitor.svg" alt="GIGABYTE Gaming 27 inch" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">GIGABYTE Gaming 27 inch Full HD GS27FA</h3>
+            <div class="product-price-box">
+              <span class="current-price">2.890.000₫</span>
+              <span class="old-price">3.490.000₫</span>
+              <span class="discount-rate">-17%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Đã bán 471</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 5/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 3: Ốp Lưng iPhone 18 Pro Max -->
+        <article class="product-card card-accessory" data-aos="fade-up" data-aos-delay="150">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">TẶNG SẠC DỰ PHÒNG</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/iphone-case.svg" alt="Ốp Lưng iPhone" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">Ốp Lưng iPhone 18 Pro Max/17 Pro Max MagSafe</h3>
+            <div class="product-price-box">
+              <span class="current-price">1.716.000₫</span>
+              <span class="old-price">1.950.000₫</span>
+              <span class="discount-rate">-12%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Chỉ bán online</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 10/10 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Chi tiết</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 4: G-SHOCK 53.4 mm Nam -->
+        <article class="product-card card-watch" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">GIẢM ĐẬM</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/gshock-watch.svg" alt="G-SHOCK 53.4 mm" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">G-SHOCK 53.4 mm Nam GA-700HDS-7ADR</h3>
+            <div class="product-price-box">
+              <span class="current-price">2.450.000₫</span>
+              <span class="old-price">3.810.000₫</span>
+              <span class="discount-rate">-35%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Đã bán 22</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 3/3 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 5: realme 15 5G -->
+        <article class="product-card card-phone" data-aos="fade-up" data-aos-delay="250">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+            <span class="badge-tag-ai">★ AI</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/realme-phone.svg" alt="realme 15 5G" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">realme 15 5G 8GB/256GB</h3>
+            <div class="product-price-box">
+              <span class="current-price">8.480.000₫</span>
+              <span class="old-price">10.490.000₫</span>
+              <span class="discount-rate">-19%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 4.9</span>
+              <span class="sales-count">• Đã bán 11,7k</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 40%;"></div>
+              <span class="progress-text">🔥 2/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 6: MSI Gaming MAG 24.5 inch -->
+        <article class="product-card card-screen" data-aos="fade-up" data-aos-delay="300">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/msi-monitor.svg" alt="MSI Gaming MAG" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">MSI Gaming MAG 24.5 inch Full HD 255PXF</h3>
+            <div class="product-price-box">
+              <span class="current-price">3.890.000₫</span>
+              <span class="old-price">4.990.000₫</span>
+              <span class="discount-rate">-22%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Đã bán 26</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 5/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 7: MacBook Pro 16 inch M5 Pro -->
+        <article class="product-card card-laptop" data-aos="fade-up" data-aos-delay="350">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">SIÊU PHẨM</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/macbook-pro.svg" alt="MacBook Pro 16" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">MacBook Pro 16 inch M5 Pro 24GB/1TB</h3>
+            <div class="product-price-box">
+              <span class="current-price">78.490.000₫</span>
+              <span class="old-price">81.990.000₫</span>
+              <span class="discount-rate">-4%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Đã bán 53</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 5/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 8: GIGABYTE Gaming 23.8 inch -->
+        <article class="product-card card-screen" data-aos="fade-up" data-aos-delay="400">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/gigabyte-monitor.svg" alt="GIGABYTE 23.8 inch" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">GIGABYTE Gaming 23.8 inch Full HD GS24F14A</h3>
+            <div class="product-price-box">
+              <span class="current-price">2.090.000₫</span>
+              <span class="old-price">2.490.000₫</span>
+              <span class="discount-rate">-16%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Đã bán 411</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 5/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 9: Cáp sạc nhanh Type-C -->
+        <article class="product-card card-accessory" data-aos="fade-up" data-aos-delay="450">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">ONLINE GIÁ RẺ</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/charger-cable.svg" alt="Cáp sạc Type-C" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">Cáp sạc nhanh và truyền dữ liệu Type-C 65W PD</h3>
+            <div class="product-price-box">
+              <span class="current-price">195.000₫</span>
+              <span class="old-price">220.000₫</span>
+              <span class="discount-rate">-11%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 4.9</span>
+              <span class="sales-count">• Đã bán 170</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 10/10 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Chi tiết</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 10: OPPO A6 Pro 5G -->
+        <article class="product-card card-phone" data-aos="fade-up" data-aos-delay="500">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+            <span class="badge-tag-ai">★ AI</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/oppo-phone.svg" alt="OPPO A6 Pro 5G" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">OPPO A6 Pro 5G 12GB/256GB</h3>
+            <div class="product-price-box">
+              <span class="current-price">11.260.000₫</span>
+              <span class="old-price">11.990.000₫</span>
+              <span class="discount-rate">-6%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 4.9</span>
+              <span class="sales-count">• Đã bán 40,9k</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 100%;"></div>
+              <span class="progress-text">🔥 5/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 11: AirPods Max USB-C -->
+        <article class="product-card card-accessory" data-aos="fade-up" data-aos-delay="550">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">GIẢM ĐẬM</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/airpods-max.svg" alt="AirPods Max USB-C" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">AirPods Max cổng sạc USB-C Space Gray</h3>
+            <div class="product-price-box">
+              <span class="current-price">10.990.000₫</span>
+              <span class="old-price">14.990.000₫</span>
+              <span class="discount-rate">-26%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 5.0</span>
+              <span class="sales-count">• Đã bán 494</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 66%;"></div>
+              <span class="progress-text">🔥 2/3 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+        <!-- SẢN PHẨM 12: Philips Gaming Evnia 27 inch -->
+        <article class="product-card card-screen" data-aos="fade-up" data-aos-delay="600">
+          <div class="card-badge-top">
+            <span class="badge-tag-sale">10.10 SALE</span>
+          </div>
+          <a href="#modal-vivo-v60" class="card-img-link">
+            <img src="assets/philips-monitor.svg" alt="Philips Gaming Evnia" class="product-thumb">
+          </a>
+          <div class="card-info">
+            <h3 class="product-name">Philips Gaming Evnia 27 inch QHD 2K 170Hz</h3>
+            <div class="product-price-box">
+              <span class="current-price">3.290.000₫</span>
+              <span class="old-price">3.890.000₫</span>
+              <span class="discount-rate">-15%</span>
+            </div>
+            <div class="product-rating-box">
+              <span class="star-rating">★ 4.9</span>
+              <span class="sales-count">• Đã bán 386</span>
+            </div>
+            <div class="flash-progress-bar">
+              <div class="progress-fill" style="width: 80%;"></div>
+              <span class="progress-text">🔥 4/5 Suất</span>
+            </div>
+            <div class="card-action-btns">
+              <a href="#modal-vivo-v60" class="btn-outline-spec">Thông số</a>
+              <label for="toast-add-cart" class="btn-action-cart">+</label>
+              <label for="toast-buy-now" class="btn-primary-buy">Mua ngay</label>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       CHỨC NĂNG XEM THÔNG TIN SẢN PHẨM / THÔNG SỐ KỸ THUẬT
+       (MODAL THUẦN CSS SỬ DỤNG :target - ZERO JS)
+       GIAO DIỆN TƯƠNG ĐƯƠNG HÌNH ẢNH 2 ĐÍNH KÈM!
+       ========================================== -->
+  <div id="modal-vivo-v60" class="css-modal-overlay">
+    <div class="modal-dialog animate__animated animate__zoomIn">
+      
+      <!-- Nút đóng Modal (href="#" đóng CSS :target) -->
+      <a href="#" class="modal-close-btn" title="Đóng">&times;</a>
+
+      <!-- Tiêu đề trang chi tiết -->
+      <div class="detail-header-bar">
+        <h2>Điện thoại vivo V60 5G 12GB/256GB</h2>
+        <div class="detail-meta">
+          <span class="rating-stars">★★★★★ 4.9</span>
+          <span class="meta-separator">•</span>
+          <span class="sold-text">Đã bán 6,7k</span>
+          <span class="meta-separator">•</span>
+          <a href="#tab-spec-anchor" class="link-specs">Thông số</a>
+          <span class="meta-separator">•</span>
+          <span class="link-compare">So sánh</span>
+        </div>
+      </div>
+
+      <!-- Khung hiển thị nội dung 2 cột -->
+      <div class="detail-content-grid">
+        
+        <!-- CỘT TRÁI: HÌNH ẢNH SẢN PHẨM & TÍNH NĂNG NỔI BẬT -->
+        <div class="detail-col-left">
+          
+          <!-- Banner đồ hoạ tính năng (đối ứng hình 2) -->
+          <div class="feature-banner-box">
+            <img src="assets/vivo-detail-banner.svg" alt="vivo V60 5G Tính năng">
+          </div>
+
+          <!-- Cam kết của Đăng Nhật Store (Giống TGDD) -->
+          <div class="commitments-box">
+            <h4>Đăng Nhật Store cam kết</h4>
+            <ul class="commitments-list">
+              <li>
+                <span class="c-icon">🔄</span>
+                <span>Hư gì đổi nấy <strong>12 tháng</strong> tại 2.982 siêu thị toàn quốc (miễn phí tháng đầu).</span>
+              </li>
+              <li>
+                <span class="c-icon">🛡️</span>
+                <span>Bảo hành <strong>chính hãng Điện thoại 1 năm</strong> tại các trung tâm bảo hành hãng.</span>
+              </li>
+              <li>
+                <span class="c-icon">📦</span>
+                <span>Bộ sản phẩm gồm: Hộp, Cáp Type C, Cây lấy sim, Ốp lưng, Củ sạc siêu nhanh 90W Type-A, Sách hướng dẫn.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tabs Thông số kỹ thuật & Thông tin sản phẩm (Thuần CSS Tabs) -->
+          <div id="tab-spec-anchor" class="specs-tabs-container">
+            <input type="radio" name="spec-tab" id="radio-tab-specs" class="spec-tab-radio" checked>
+            <input type="radio" name="spec-tab" id="radio-tab-desc" class="spec-tab-radio">
+
+            <div class="specs-tab-header">
+              <label for="radio-tab-specs" class="spec-tab-label label-specs">Thông số kỹ thuật</label>
+              <label for="radio-tab-desc" class="spec-tab-label label-desc">Thông tin sản phẩm</label>
+            </div>
+
+            <!-- Nội dung Tab 1: Bảng thông số kỹ thuật chi tiết (Đối ứng hình 2) -->
+            <div class="spec-pane pane-specs">
+              <table class="specs-table">
+                <tbody>
+                  <tr class="table-section-title"><td colspan="2">Cấu hình & Bộ nhớ</td></tr>
+                  <tr><th>Hệ điều hành:</th><td>Android 15 (OriginOS / Funtouch OS)</td></tr>
+                  <tr><th>Chip xử lý (CPU):</th><td>Snapdragon 7 Gen 4 8 nhân (4nm siêu tiết kiệm pin)</td></tr>
+                  <tr><th>Tốc độ CPU:</th><td>1 nhân 2.8 GHz, 4 nhân 2.4 GHz & 3 nhân 1.8 GHz</td></tr>
+                  <tr><th>Chip đồ hoạ (GPU):</th><td>Adreno 725 Flagship</td></tr>
+                  <tr><th>RAM:</th><td>12 GB (+ 12GB RAM Mở rộng)</td></tr>
+                  <tr><th>Dung lượng lưu trữ:</th><td>256 GB UFS 3.1</td></tr>
+                  <tr><th>Thẻ nhớ:</th><td>Không hỗ trợ</td></tr>
+                  <tr class="table-section-title"><td colspan="2">Camera & Màn hình</td></tr>
+                  <tr><th>Màn hình:</th><td>AMOLED 6.77" 1.5K, 120Hz, Độ sáng 5000 nits đỉnh cao</td></tr>
+                  <tr><th>Camera sau:</th><td>Chính 50 MP ZEISS OIS + Góc siêu rộng 50 MP</td></tr>
+                  <tr><th>Camera trước:</th><td>50 MP Tự động lấy nét theo mắt ZEISS</td></tr>
+                  <tr><th>Pin & Sạc:</th><td>6500 mAh, Sạc siêu nhanh 90W FlashCharge</td></tr>
+                  <tr><th>Kháng nước, bụi:</th><td>IP68 / IP69 Chuẩn quân đội</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Nội dung Tab 2: Giới thiệu sản phẩm -->
+            <div class="spec-pane pane-desc">
+              <p>Điện thoại <strong>vivo V60 5G</strong> đánh dấu bước đột phá toàn diện với cụm camera đồng chế tác chuyên nghiệp cùng thương hiệu quang học hàng đầu thế giới <strong>ZEISS</strong>.</p>
+              <p>Trang bị vi xử lý <strong>Snapdragon 7 Gen 4</strong> mạnh mẽ, cùng viên pin khủng bậc nhất phân khúc <strong>6500 mAh</strong> mà vẫn giữ được độ mỏng tinh tế, chuẩn kháng nước cao cấp <strong>IP68 & IP69</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CỘT PHẢI: GIÁ BÁN, PHIÊN BẢN, KHUYẾN MÃI & NÚT MUA -->
+        <div class="detail-col-right">
+          
+          <!-- Hộp khuyến mại HSSV -->
+          <div class="student-promo-banner">
+            <span class="badge-discount">GIẢM THÊM 200.000₫</span>
+            <span>Với HSSV (Từ THPT trở lên), Giáo viên, Giảng viên</span>
+          </div>
+
+          <!-- Lựa chọn phiên bản dung lượng (CSS Radio Pills) -->
+          <div class="option-group">
+            <div class="group-label">Chọn phiên bản bộ nhớ:</div>
+            <div class="pills-selector">
+              <input type="radio" name="ram-storage" id="opt-256gb" checked>
+              <label for="opt-256gb" class="pill-label">256GB</label>
+              
+              <input type="radio" name="ram-storage" id="opt-512gb">
+              <label for="opt-512gb" class="pill-label">512GB (+1.500.000₫)</label>
+            </div>
+          </div>
+
+          <!-- Lựa chọn màu sắc -->
+          <div class="option-group">
+            <div class="group-label">Chọn màu sắc yêu thích:</div>
+            <div class="pills-selector">
+              <input type="radio" name="color-pick" id="color-purple" checked>
+              <label for="color-purple" class="pill-label pill-color">
+                <span class="color-dot dot-purple"></span> Tím Vũ Trụ
+              </label>
+
+              <input type="radio" name="color-pick" id="color-grey">
+              <label for="color-grey" class="pill-label pill-color">
+                <span class="color-dot dot-grey"></span> Xám Titan
+              </label>
+            </div>
+          </div>
+
+          <!-- Khung Giá & Flash Sale Timer -->
+          <div class="detail-price-box">
+            <div class="price-row">
+              <span class="detail-current-price">14.580.000₫</span>
+              <span class="detail-old-price">15.990.000₫</span>
+              <span class="detail-badge-sale">-8%</span>
+            </div>
+            <div class="flash-sale-badge-row">
+              <span class="flash-text">⚡ Flash sale 02:05:25</span>
+              <span class="slot-text">Còn 2/5 suất</span>
+            </div>
+          </div>
+
+          <!-- Gói bảo hành lựa chọn -->
+          <div class="warranty-selector">
+            <label class="warranty-card active">
+              <input type="radio" name="warranty-plan" checked>
+              <div class="w-info">
+                <strong>Gói tiêu chuẩn</strong>
+                <span>Bảo hành theo nhà sản xuất - 12 tháng</span>
+              </div>
+              <span class="w-price">0₫</span>
+            </label>
+            <label class="warranty-card">
+              <input type="radio" name="warranty-plan">
+              <div class="w-info">
+                <strong>Gói an tâm sử dụng VIP (Khuyên dùng)</strong>
+                <span>Bảo hành 1 đổi 1 trong 12 tháng tại Đăng Nhật Store</span>
+              </div>
+              <span class="w-price">+710.000₫</span>
+            </label>
+          </div>
+
+          <!-- Hộp Khuyến mãi trị giá 800.000₫ -->
+          <div class="promo-gift-box">
+            <div class="promo-title">🎁 Khuyến mại trị giá 800.000₫ (Áp dụng đến 23:59 hôm nay)</div>
+            <div class="promo-choice">
+              <label class="gift-item">
+                <input type="radio" name="promo-gift" checked>
+                <span>Giảm trực tiếp <strong>600.000₫</strong> vào hoá đơn</span>
+              </label>
+              <label class="gift-item">
+                <input type="radio" name="promo-gift">
+                <span>Phiếu mua hàng phụ kiện, đồng hồ trị giá <strong>700.000₫</strong></span>
+              </label>
+              <label class="gift-item">
+                <input type="radio" name="promo-gift">
+                <span>Gói Bảo hành mở rộng rơi vỡ cho smartphone trị giá <strong>500.000₫</strong></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- NÚT MUA HÀNG VÀ THÊM VÀO GIỎ HÀNG THUẦN CSS -->
+          <div class="modal-cta-buttons">
+            <label for="toast-add-cart" class="btn-cta-cart">
+              <span class="cta-icon">🛒</span>
+              <span>Thêm vào giỏ hàng</span>
+            </label>
+            <label for="toast-buy-now" class="btn-cta-buy">
+              <strong>MUA NGAY</strong>
+              <small>(Giao tận nơi hoặc nhận tại siêu thị)</small>
+            </label>
+            <label for="toast-buy-now" class="btn-cta-installment">
+              <strong>TRẢ CHẬM 0%</strong>
+              <small>(Duyệt hồ sơ online 5 phút)</small>
+            </label>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================
+       CHỨC NĂNG GIỎ HÀNG (SLIDE-OVER DRAWER THUẦN CSS)
+       ========================================== -->
+  <aside class="cart-slide-drawer">
+    <div class="cart-drawer-header">
+      <h3>Giỏ hàng của bạn</h3>
+      <label for="cart-drawer-toggle" class="close-cart-btn">&times;</label>
+    </div>
+    <div class="cart-drawer-body">
+      <div class="cart-item">
+        <img src="assets/vivo-v60.svg" alt="vivo V60 5G" class="cart-item-img">
+        <div class="cart-item-details">
+          <h4>Điện thoại vivo V60 5G (12GB/256GB - Tím)</h4>
+          <span class="cart-item-price">14.580.000₫</span>
+          <div class="cart-qty-badge">Số lượng: 1</div>
+        </div>
+      </div>
+      <div class="cart-summary-box">
+        <div class="summary-line">
+          <span>Tạm tính:</span>
+          <span>14.580.000₫</span>
+        </div>
+        <div class="summary-line">
+          <span>Khuyến mãi 10.10:</span>
+          <span class="discount-num">-600.000₫</span>
+        </div>
+        <div class="summary-line line-total">
+          <span>Tổng thanh toán:</span>
+          <span class="final-price">13.980.000₫</span>
+        </div>
+      </div>
+    </div>
+    <div class="cart-drawer-footer">
+      <label for="toast-buy-now" class="btn-checkout">TIẾN HÀNH ĐẶT HÀNG</label>
+      <label for="cart-drawer-toggle" class="btn-continue-shopping">Tiếp tục mua hàng</label>
+    </div>
+  </aside>
+  <!-- Backdrop đóng giỏ khi click ra ngoài -->
+  <label for="cart-drawer-toggle" class="cart-backdrop"></label>
+
+  <!-- ==========================================
+       SEMANTIC ELEMENT 5: <footer> (CHÂN TRANG)
+       ========================================== -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      
+      <div class="footer-col">
+        <h4 class="footer-heading">Thông tin liên hệ</h4>
+        <p><strong>Đăng Nhật Store - Hệ Thống Bán Lẻ Công Nghệ</strong></p>
+        <p>Địa chỉ: 123 Đường Công Nghệ, Quận 1, TP. Hồ Chí Minh</p>
+        <p>Hotline bán hàng: <strong>1800 1060</strong> (7:30 - 22:00)</p>
+        <p>Góp ý, khiếu nại: <strong>1800 1062</strong> (8:00 - 21:30)</p>
+        <p>Email: hotro@dangnhatstore.vn</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Chính sách & Hỗ trợ</h4>
+        <ul class="footer-links">
+          <li><a href="#">Chính sách đổi trả 12 tháng</a></li>
+          <li><a href="#">Chính sách bảo hành chính hãng</a></li>
+          <li><a href="#">Chính sách giao hàng siêu tốc 2h</a></li>
+          <li><a href="#">Hướng dẫn mua trả chậm 0%</a></li>
+          <li><a href="#">Chính sách bảo mật thông tin</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Dịch vụ & Tiện ích</h4>
+        <ul class="footer-links">
+          <li><a href="#">Thu cũ đổi mới trợ giá 4 triệu</a></li>
+          <li><a href="#">Bán hàng doanh nghiệp (B2B)</a></li>
+          <li><a href="#">Thanh toán hoá đơn điện thoại, điện nước</a></li>
+          <li><a href="#">Mua sim số đẹp, thẻ cào data</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Phương thức thanh toán</h4>
+        <div class="payment-badges">
+          <span class="pay-chip">VISA</span>
+          <span class="pay-chip">MasterCard</span>
+          <span class="pay-chip">JCB</span>
+          <span class="pay-chip">VNPAY</span>
+          <span class="pay-chip">MoMo</span>
+          <span class="pay-chip">Trả chậm</span>
+        </div>
+        <div class="certification-box">
+          <span class="cert-badge">ĐÃ THÔNG BÁO BỘ CÔNG THƯƠNG</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="copyright-bar">
+      <div class="container">
+        <p>© 2026 Đăng Nhật Store. Sinh viên thực hiện: <strong>Nguyễn Đăng Nhật (MSSV: 526000175)</strong>. Toàn bộ mã nguồn thuần Semantic HTML5 & CSS3 - Không sử dụng JavaScript.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Thanh dính mua hàng nhanh ở màn hình chi tiết (Sticky Buy Bar) -->
+  <div class="sticky-product-bar">
+    <div class="container sticky-bar-inner">
+      <div class="sticky-thumb-info">
+        <img src="assets/vivo-v60.svg" alt="vivo V60" width="40" height="40">
+        <div>
+          <strong>Điện thoại vivo V60 5G 12GB/256GB</strong>
+          <span class="sticky-price">14.580.000₫</span>
+        </div>
+      </div>
+      <div class="sticky-actions">
+        <label for="toast-add-cart" class="btn-sticky-cart">Thêm vào giỏ</label>
+        <label for="toast-buy-now" class="btn-sticky-buy">Mua ngay</label>
+        <label for="toast-buy-now" class="btn-sticky-credit">Trả chậm 0%</label>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
